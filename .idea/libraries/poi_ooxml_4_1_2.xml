@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="poi-ooxml-4.1.2">
+    <CLASSES>
+      <root url="jar://H:/JAR包/poi-ooxml-4.1.2.jar!/" />
+      <root url="jar://H:/JAR包/poi-ooxml-schemas-4.1.2.jar!/" />
+      <root url="jar://H:/JAR包/xmlbeans-3.1.0.jar!/" />
+      <root url="jar://H:/JAR包/commons-collections4-4.4.jar!/" />
+      <root url="jar://H:/JAR包/commons-compress-1.19.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
