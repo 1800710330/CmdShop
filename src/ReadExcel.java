@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 
@@ -14,10 +15,10 @@ public class ReadExcel {
     /*
     ReadExcel是成员方法（全局方法），成员变量（全局变量）也叫作属性
      */
-    public User[] readExcel(File file)/*用户数组*/ {
+    public User[] readExcel(InputStream in)/*用户数组*/ {
         User users[] = null;//用户数组长度初始化
         try {
-            XSSFWorkbook xw = new XSSFWorkbook(new FileInputStream(file));
+            XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);//ctrl+alt+键对齐
             users = new User[xs.getLastRowNum()];//用户数组长度的赋值
             for (int j = 1; j <= xs.getLastRowNum(); j++) /*行*/ {
@@ -66,7 +67,7 @@ public class ReadExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
-                value = df.format(cell.getNumericCellValue()); //double和一个空字符串相连接，最终得到一个字符串
+                value = df.format(cell.getNumericCellValue());    //double和一个空字符串相连接，最终得到一个字符串
                 break;
             case FORMULA:
                 value = cell.getCellFormula();
