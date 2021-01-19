@@ -34,7 +34,7 @@ public class ReadProductExcel {
                     } else if (k == 1) {
                         product.setpName(this.getValue(cell));
                     } else if (k == 2) {
-                        product.setPrice(this.getValue(cell));
+                        product.setPrice(Float.valueOf(this.getValue(cell)));//将字符串转为float
                     } else if (k == 3) {
                         product.setpDesc(this.getValue(cell));
                     }
@@ -52,7 +52,7 @@ public class ReadProductExcel {
 
     private String getValue(XSSFCell cell) {
         String value;
-        CellType type = cell.getCellTypeEnum();
+        CellType type = cell.getCellType();//弃用过时的CellType type = cell.getCellTypeEnum();
         DecimalFormat df = new DecimalFormat("#");
         switch (type) {
             case STRING:

@@ -5,7 +5,7 @@ public class Test {
     //psvm+回车
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo = true;
-        while(bo) {
+        while (bo) {
 
         /*
         开始读文件进行信息的比对
@@ -23,7 +23,9 @@ public class Test {
             ReadUsersExcel readExcel = new ReadUsersExcel();//创建读文件的对象
             User users[] = readExcel.readExcel(in);//参数对象in
             for (int i = 0; i < users.length; i++) {
-                if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
+                if (username.equals(users[i].getUsername().trim()) && password.equals(users[i].getPassword().trim()))
+                //用trim（）可处理前后空格
+                {
                     System.out.println("登录成功");
                     bo = false;
                     break;

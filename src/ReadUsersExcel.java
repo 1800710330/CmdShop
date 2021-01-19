@@ -54,7 +54,7 @@ public class ReadUsersExcel {
 
     private String getValue(XSSFCell cell) {
         String value;
-        CellType type = cell.getCellTypeEnum();
+        CellType type = cell.getCellType();//弃用过时的CellType type = cell.getCellTypeEnum();
         DecimalFormat df = new DecimalFormat("#");
         switch (type) {
             case STRING:
