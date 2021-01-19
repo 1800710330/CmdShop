@@ -13,32 +13,32 @@ public class ReadProductExcel {
     /*
     ReadExcel是成员方法（全局方法），成员变量（全局变量）也叫作属性
      */
-    public User[] readExcel(InputStream in)/*用户数组*/ {
-        User users[] = null;//用户数组长度初始化
+    public Product[] readExcel(InputStream in)/*商品数组*/ {
+        Product products[] = null;//商品数组长度初始化
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);//ctrl+alt+键对齐
-            users = new User[xs.getLastRowNum()];//用户数组长度的赋值
+            products = new Product[xs.getLastRowNum()];//商品数组长度的赋值
             for (int j = 1; j <= xs.getLastRowNum(); j++) /*行*/ {
                 XSSFRow row = xs.getRow(j);
-                User user = new User();//创建用户数组,外循环每循环一次就是一个用户信息
+                Product product = new Product();//创建商品数组,外循环每循环一次就是一个商品信息
                     /*
-                    内循环就是给用户对象赋值
+                    内循环就是给商品对象赋值
                     */
                 for (int k = 0; k <= row.getLastCellNum(); k++)/*列*/ {
                     XSSFCell cell = row.getCell(k);
                     if (cell == null)
                         continue;
                     if (k == 0) {
-                        user.setUsername(this.getValue(cell));
+                        product.setpId(this.getValue(cell));
                     } else if (k == 1) {
-                        user.setPassword(this.getValue(cell));
+                        product.setpName(this.getValue(cell));
                     } else if (k == 2) {
-                        user.setAddress(this.getValue(cell));
+                        product.setPrice(this.getValue(cell));
                     } else if (k == 3) {
-                        user.setPhone(this.getValue(cell));
+                        product.setpDesc(this.getValue(cell));
                     }
-                    users[j - 1] = user;
+                    products[j - 1] = product;
                 }
             }
 
@@ -47,7 +47,7 @@ public class ReadProductExcel {
         }
 
 
-        return users;
+        return products;
     }
 
     private String getValue(XSSFCell cell) {
