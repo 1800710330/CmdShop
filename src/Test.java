@@ -16,12 +16,18 @@ public class Test {
         //可自动打包，首行出现import java.util.Scanner(从键盘输入)
         //接收键盘输入
         String username = sc.next();//把键盘输入的用户名赋值给username
+        System.out.println("你输入的用户名：" +username);
+
         System.out.println("请输入密码：");
         String password = sc.next();
+        System.out.println("你输入的密码：" +password);
 
-        for(User user:users){
-            if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
+        for(int i = 0;i < users.length;i++){
+            if(username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())){
                 System.out.println("登录成功");
+                break;
+            }else{
+                System.out.println("登录失败");
             }
         }
     }
