@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class Test {
             System.out.println("请输入密码：");
             String password = sc.next();
             InputStream in = Class.forName("Test").getResourceAsStream("/Users.xlsx");//改进后的输出流（常用）
-            ReadExcel readExcel = new ReadExcel();//创建读文件的对象
+            ReadUsersExcel readExcel = new ReadUsersExcel();//创建读文件的对象
             User users[] = readExcel.readExcel(in);//参数对象in
             for (int i = 0; i < users.length; i++) {
                 if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {

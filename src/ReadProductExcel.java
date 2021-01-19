@@ -4,14 +4,12 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 
 
-public class ReadExcel {
+public class ReadProductExcel {
     /*
     ReadExcel是成员方法（全局方法），成员变量（全局变量）也叫作属性
      */
