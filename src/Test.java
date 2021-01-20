@@ -1,6 +1,5 @@
 import java.io.InputStream;
 import java.util.Scanner;
-
 public class Test {
     //psvm+回车
     public static void main(String[] args) throws ClassNotFoundException {
@@ -30,7 +29,7 @@ public class Test {
                     System.out.println("登录成功");
                     bo = false;
                     /*
-                    显示商品
+                    显示商品，也就是遍历数组
                      */
                     ReadProductExcel readProductExcel = new ReadProductExcel();
                     Product products[] = readProductExcel.getAllProduct(inProduct);
@@ -40,52 +39,131 @@ public class Test {
                         System.out.print("\t" + product.getPrice());
                         System.out.println("\t" + product.getpDesc());//空格+换行
                     }
-                    System.out.println("请输入商品ID将该商品加入购物车");
+                    System.out.println("请输入商品ID将该商品加入购物车：");
                     String pId = sc.next();
                     /*
-                    创建一个购物车数组：存放商品
+                    创建一个购物车数组：存放商品(用数组模拟)
                      */
                     int count = 0;
                     Product carts[] = new Product[3];
                     /*
                     根据此ID去excel中查找是否有对应的商品信息，若有则返回该商品
                      */
+                    ReadProductExcel readProductExcel1 = new ReadProductExcel();
                     inProduct = null;
                     inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
-                    Product product = readProductExcel.getProductById(pId, inProduct);
-                    System.out.println("该商品的价格：" + product.getPrice());
-                    if (product ! = null){
-                    carts[count++] = product;
-                }
-                    System.out.println("继续购买商品请按1");
-                    System.out.println("查看购物车请按2");
+                    Product product = readProductExcel1.getProductById(pId, inProduct);
+                    if (product != null) {
+                        carts[count++] = product;
+                    }
+                    System.out.println("查看购物车请按1");
+                    System.out.println("继续购买商品请按2");
                     int choose = sc.nextInt();//输入整型
                     if (choose == 1) {
+                        /*
+                        1.查看购物车
+                        （1）购物车用数组模拟
+                        （2）将数组内元素逐个找出来：对数组遍历
+                         */
                         inProduct = null;
                         inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
                         products = readProductExcel.getAllProduct(inProduct);
+                        for (int j = 0; j < carts.length; j++) {
+                            if (carts[j] != null) {
+                                System.out.print(carts[j].getpId());
+                                System.out.print("\t" + carts[j].getpName());
+                                System.out.print("\t" + carts[j].getPrice());
+                                System.out.println("\t" + carts[j].getpDesc());//空格+换行
+                            }
+                        }
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
+                        product = readProductExcel.getProductById(pId, inProduct);
+                        if (product != null) {
+                            /*
+                            将商品加入购物车
+                             */
+                            carts[count++] = product;
+                        }
+                    } else if (choose == 2) {
+                        /*
+                        2.继续购物
+                        （1）又要显示所有商品
+                         */
+                        readProductExcel = new ReadProductExcel();
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
+                        products =readProductExcel.getAllProduct(inProduct);
                         for (Product p : products) {
                             System.out.print(p.getpId());
                             System.out.print("\t" + p.getpName());
                             System.out.print("\t" + p.getPrice());
                             System.out.println("\t" + p.getpDesc());//空格+换行
                         }
-                        System.out.println("请输入商品ID将该商品加入购物车");
+                        System.out.println("请输入商品ID将该商品加入购物车：");
                         pId = sc.next();
+                        readProductExcel1 = new ReadProductExcel();
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
+                        Product product1 = readProductExcel1.getProductById(pId, inProduct);
+                        if (product != null) {
+                            carts[count++] = product1;
+                        }
+                    }
+                    System.out.println("查看购物车请按1");
+                    System.out.println("继续购买商品请按2");
+                    choose = sc.nextInt();//输入整型
+                    if (choose == 1) {
+                        /*
+                        1.查看购物车
+                        （1）购物车用数组模拟
+                        （2）将数组内元素逐个找出来：对数组遍历
+                         */
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
+                        products = readProductExcel.getAllProduct(inProduct);
+                        for (int j = 0; j < carts.length; j++) {
+                            if (carts[j] != null) {
+                                System.out.print(carts[j].getpId());
+                                System.out.print("\t" + carts[j].getpName());
+                                System.out.print("\t" + carts[j].getPrice());
+                                System.out.println("\t" + carts[j].getpDesc());//空格+换行
+                            }
+                        }
                         inProduct = null;
                         inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
                         product = readProductExcel.getProductById(pId, inProduct);
-                        System.out.println("该商品的价格：" + product.getPrice());
-                        if (product ! = null){
+                        if (product != null) {
+                            /*
+                            将商品加入购物车
+                             */
                             carts[count++] = product;
                         }
-                    }else if(choose == 2){
+                    } else if (choose == 2) {
                         /*
-                        查看购物车
+                        2.继续购物
+                        （1）又要显示所有商品
                          */
-
+                        readProductExcel = new ReadProductExcel();
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
+                        products =readProductExcel.getAllProduct(inProduct);
+                        for (Product p : products) {
+                            System.out.print(p.getpId());
+                            System.out.print("\t" + p.getpName());
+                            System.out.print("\t" + p.getPrice());
+                            System.out.println("\t" + p.getpDesc());//空格+换行
+                        }
+                        System.out.println("请输入商品ID将该商品加入购物车：");
+                        pId = sc.next();
+                        readProductExcel1 = new ReadProductExcel();
+                        inProduct = null;
+                        inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
+                        Product product1 = readProductExcel1.getProductById(pId, inProduct);
+                        if (product != null) {
+                            carts[count++] = product1;
+                        }
                     }
-
 
                     break;
                 } else {
