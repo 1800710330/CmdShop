@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.sql.Date;
 
 public class Order {
     /*
@@ -6,8 +6,8 @@ public class Order {
     订单包含哪些商品？
      */
     private User user;
-    private Product product;
-    private int productAmmount;
+    private Product products[];
+    private int productAmmount;//购买数量
     private float totalPrice;
     private float finalPay;
     private Date orderDate;
@@ -16,16 +16,16 @@ public class Order {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user) {//订单与用户进行关联
         this.user = user;
     }
 
-    public Product getProduct() {
-        return product;
+    public Product[] getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(Product[] products) {
+        this.products = products;
     }
 
     public int getProductAmmount() {

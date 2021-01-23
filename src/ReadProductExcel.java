@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 
 public class ReadProductExcel {
     /*
+    返回所有的商品，包含了所有商品的数组
     ReadExcel是成员方法（全局方法），成员变量（全局变量）也叫作属性
      */
     public Product[] getAllProduct(InputStream in)/*商品数组*/ {
@@ -49,6 +50,9 @@ public class ReadProductExcel {
 
         return products;
     }
+    /*
+    根据id查找商品，返回id对应的商品
+     */
     public Product getProductById(String id,InputStream in)/*商品数组*/ {
         Product products[] = null;//商品数组长度初始化
         try {
@@ -74,6 +78,7 @@ public class ReadProductExcel {
                         product.setpDesc(this.getValue(cell));
                     }
                 }
+                /*若手动输入的id与product的id（电子表格）一致，则返回该商品*/
                 if(id.equals(product.getpId())){
                 return product;
                 }
@@ -84,13 +89,13 @@ public class ReadProductExcel {
         }
 
 
-        return null;//防止不返回product
+        return null;//找不到商品则返回空，防止不返回product
     }
 
     private String getValue(XSSFCell cell) {
         String value;
         CellType type = cell.getCellType();//弃用过时的CellType type = cell.getCellTypeEnum();
-        DecimalFormat df = new DecimalFormat("#");
+
         switch (type) {
             case STRING:
                 value = cell.getStringCellValue();
@@ -102,6 +107,7 @@ public class ReadProductExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
+                DecimalFormat df = new DecimalFormat("#");
                 value = df.format(cell.getNumericCellValue());    //double和一个空字符串相连接，最终得到一个字符串
                 break;
             case FORMULA:

@@ -37,19 +37,26 @@ public class Test {
                         （1）购物车用数组模拟
                         （2）将数组内元素逐个找出来：对数组遍历
                          */
-                            for (Product product : carts) {
-                            /*
-                            显示商品，也就是遍历数组
-                            */
-                                if (product != null) {
-                                    System.out.print(product.getpId());
-                                    System.out.print("\t" + product.getpName());
-                                    System.out.print("\t" + product.getPrice());
-                                    System.out.println("\t" + product.getpDesc());//空格+换行
-                                }
-                            }
-                        } else if (choose == 2) {
                             viewCarts();
+                        } else if (choose == 2) {
+                            shopping(sc);//调用方法
+                        } else if (choose == 3) {
+                            /*
+                            1.产生订单(订单类)
+                            2.用POI创建Order.xlsx文件
+                            3.把购物车里的商品写入Order.xlsx文件
+                             */
+                            Order order = new Order();//创建订单类对象
+                            order.setUser(users[i]);//登录成功的该用户
+                            order.setProducts();//如何关联订单和商品？
+                            /*
+                            统计每个商品的数量
+                             */
+
+
+
+
+
                         } else if (choose == 4) {
                             System.out.println("退出成功");
                             break;
@@ -63,6 +70,9 @@ public class Test {
         }
     }
 
+    /*
+    查看购物车
+     */
     public static void viewCarts() {
         System.out.println("当前购物车商品如下：");
         for (Product product : carts) {
@@ -78,6 +88,9 @@ public class Test {
         }
     }
 
+    /*
+    继续购买商品
+     */
     public static void shopping(Scanner sc) throws ClassNotFoundException {
         InputStream inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
         ReadProductExcel readProductExcel = new ReadProductExcel();

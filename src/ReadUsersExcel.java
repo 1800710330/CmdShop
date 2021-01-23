@@ -55,7 +55,7 @@ public class ReadUsersExcel {
     private String getValue(XSSFCell cell) {
         String value;
         CellType type = cell.getCellType();//弃用过时的CellType type = cell.getCellTypeEnum();
-        DecimalFormat df = new DecimalFormat("#");
+
         switch (type) {
             case STRING:
                 value = cell.getStringCellValue();
@@ -67,6 +67,7 @@ public class ReadUsersExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
+                DecimalFormat df = new DecimalFormat("#");
                 value = df.format(cell.getNumericCellValue());    //double和一个空字符串相连接，最终得到一个字符串
                 break;
             case FORMULA:
