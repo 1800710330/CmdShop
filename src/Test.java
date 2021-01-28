@@ -2,7 +2,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class Test {
-    /*åˆ›å»ºä¸€ä¸ªè´­ç‰©è½¦æ•°ç»„ï¼šå­˜æ”¾å•†å“(ç”¨æ•°ç»„æ¨¡æ‹Ÿ)
+    /*´´½¨Ò»¸ö¹ºÎï³µÊı×é£º´æ·ÅÉÌÆ·(ÓÃÊı×éÄ£Äâ)
      */
     static int count = 0;
     static Product carts[] = new Product[3];
@@ -10,86 +10,93 @@ public class Test {
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo = true;
         while (bo) {
-            System.out.println("è¯·è¾“å…¥ç”¨æˆ·åï¼š");
-            Scanner sc = new Scanner(System.in);//æ¥æ”¶é”®ç›˜è¾“å…¥
-            String username = sc.next();//é˜»å¡æ–¹æ³•
-            System.out.println("è¯·è¾“å…¥å¯†ç ï¼š");
+            System.out.println("ÇëÊäÈëÓÃ»§Ãû£º");
+            Scanner sc = new Scanner(System.in);//½ÓÊÕ¼üÅÌÊäÈë
+            String username = sc.next();//×èÈû·½·¨
+            System.out.println("ÇëÊäÈëÃÜÂë£º");
             String password = sc.next();
             InputStream in = Class.forName("Test").getResourceAsStream("/Users.xlsx");
-            ReadUsersExcel readExcel = new ReadUsersExcel();//åˆ›å»ºè¯»æ–‡ä»¶çš„å¯¹è±¡
-            User users[] = readExcel.readExcel(in);//å‚æ•°å¯¹è±¡in
+            ReadUsersExcel readExcel = new ReadUsersExcel();//´´½¨¶ÁÎÄ¼şµÄ¶ÔÏó
+            User users[] = readExcel.readExcel(in);//²ÎÊı¶ÔÏóin
             for (int i = 0; i < users.length; i++) {
                 if (username.equals(users[i].getUsername().trim()) && password.equals(users[i].getPassword().trim()))
-                //ç”¨trimï¼ˆï¼‰å¯å¤„ç†å‰åç©ºæ ¼
+                //ÓÃtrim£¨£©¿É´¦ÀíÇ°ºó¿Õ¸ñ
                 {
-                    System.out.println("ç™»å½•æˆåŠŸ");
+                    System.out.println("µÇÂ¼³É¹¦");
                     bo = false;
-                    shopping(sc);//è°ƒç”¨æ–¹æ³•
+                    shopping(sc);//µ÷ÓÃ·½·¨
                     while (true) {
-                        System.out.println("æŸ¥çœ‹è´­ç‰©è½¦è¯·æŒ‰1");
-                        System.out.println("ç»§ç»­è´­ä¹°å•†å“è¯·æŒ‰2");
-                        System.out.println("ç»“è´¦è¯·æŒ‰3");
-                        System.out.println("é€€å‡ºè¯·æŒ‰4");
-                        int choose = sc.nextInt();//è¾“å…¥æ•´å‹
+                        System.out.println("²é¿´¹ºÎï³µÇë°´1");
+                        System.out.println("¼ÌĞø¹ºÂòÉÌÆ·Çë°´2");
+                        System.out.println("½áÕËÇë°´3");
+                        System.out.println("ÍË³öÇë°´4");
+                        int choose = sc.nextInt();//ÊäÈëÕûĞÍ
                         if (choose == 1) {
                         /*
-                        1.æŸ¥çœ‹è´­ç‰©è½¦
-                        ï¼ˆ1ï¼‰è´­ç‰©è½¦ç”¨æ•°ç»„æ¨¡æ‹Ÿ
-                        ï¼ˆ2ï¼‰å°†æ•°ç»„å†…å…ƒç´ é€ä¸ªæ‰¾å‡ºæ¥ï¼šå¯¹æ•°ç»„éå†
+                        1.²é¿´¹ºÎï³µ
+                        £¨1£©¹ºÎï³µÓÃÊı×éÄ£Äâ
+                        £¨2£©½«Êı×éÄÚÔªËØÖğ¸öÕÒ³öÀ´£º¶ÔÊı×é±éÀú
                          */
                             viewCarts();
                         } else if (choose == 2) {
-                            shopping(sc);//è°ƒç”¨æ–¹æ³•
+                            shopping(sc);//µ÷ÓÃ·½·¨
                         } else if (choose == 3) {
                             /*
-                            1.äº§ç”Ÿè®¢å•(è®¢å•ç±»)
-                            2.ç”¨POIåˆ›å»ºOrder.xlsxæ–‡ä»¶
-                            3.æŠŠè´­ç‰©è½¦é‡Œçš„å•†å“å†™å…¥Order.xlsxæ–‡ä»¶
+                            1.²úÉú¶©µ¥(¶©µ¥Àà)
+                            2.ÓÃPOI´´½¨Order.xlsxÎÄ¼ş
+                            3.°Ñ¹ºÎï³µÀïµÄÉÌÆ·Ğ´ÈëOrder.xlsxÎÄ¼ş
                              */
-                            Order order = new Order();//åˆ›å»ºè®¢å•ç±»å¯¹è±¡
-                            order.setUser(users[i]);//ç™»å½•æˆåŠŸçš„è¯¥ç”¨æˆ·
-                            order.setProducts();//å¦‚ä½•å…³è”è®¢å•å’Œå•†å“ï¼Ÿ
+                            Order order = new Order();//´´½¨¶©µ¥Àà¶ÔÏó
+                            order.setUser(users[i]);//µÇÂ¼³É¹¦µÄ¸ÃÓÃ»§ ,¶©µ¥¹ØÁªÓÃ»§
+                            Product products[] = new Product[count];
                             /*
-                            ç»Ÿè®¡æ¯ä¸ªå•†å“çš„æ•°é‡
+                            Êµ¼ÊÂòÁË2¸öÉÌÆ·£¬ÔõÑù°ÑcartsÖĞµÄ2¸öÉÌÆ·¶ÔÏó·ÅÈëproducts
                              */
+                            for(int j = 0;j < carts.length;j++){
+                                if(carts[j]!= null){
+                                    products[j] = carts[j];
+                                }
+                            }
+                            order.setProducts(carts);//¶©µ¥¹ØÁªÉÌÆ·:Êµ¼ÊÓ¦¸Ã½øĞĞ´¦Àí£¬°ÑÊı×éÖĞÎªnullµÄÈ¥³ı
+                            //ÏÂ¶©µ¥£¨´´½¨Excel£©
+                            CreateOrder.createOrder(order);
 
-
-
-
-
+                            /*
+                            Í³¼ÆÃ¿¸öÉÌÆ·µÄÊıÁ¿
+                             */
                         } else if (choose == 4) {
-                            System.out.println("é€€å‡ºæˆåŠŸ");
+                            System.out.println("ÍË³ö³É¹¦");
                             break;
                         }
                     }
                     break;
                 } else {
-                    System.out.println("ç™»å½•å¤±è´¥");
+                    System.out.println("µÇÂ¼Ê§°Ü");
                 }
             }
         }
     }
 
     /*
-    æŸ¥çœ‹è´­ç‰©è½¦
+    ²é¿´¹ºÎï³µ
      */
     public static void viewCarts() {
-        System.out.println("å½“å‰è´­ç‰©è½¦å•†å“å¦‚ä¸‹ï¼š");
+        System.out.println("µ±Ç°¹ºÎï³µÉÌÆ·ÈçÏÂ£º");
         for (Product product : carts) {
             /*
-            æ˜¾ç¤ºåŠ åˆ°è´­ç‰©è½¦çš„å•†å“ï¼Œä¹Ÿå°±æ˜¯éå†æ•°ç»„
+            ÏÔÊ¾¼Óµ½¹ºÎï³µµÄÉÌÆ·£¬Ò²¾ÍÊÇ±éÀúÊı×é
             */
             if (product != null) {
                 System.out.print(product.getpId());
                 System.out.print("\t" + product.getpName());
                 System.out.print("\t" + product.getPrice());
-                System.out.println("\t" + product.getpDesc());//ç©ºæ ¼+æ¢è¡Œ
+                System.out.println("\t" + product.getpDesc());//¿Õ¸ñ+»»ĞĞ
             }
         }
     }
 
     /*
-    ç»§ç»­è´­ä¹°å•†å“
+    ¼ÌĞø¹ºÂòÉÌÆ·
      */
     public static void shopping(Scanner sc) throws ClassNotFoundException {
         InputStream inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
@@ -97,17 +104,17 @@ public class Test {
         Product products[] = readProductExcel.getAllProduct(inProduct);
         for (Product product : products) {
             /*
-            æ˜¾ç¤ºå•†å“ï¼Œä¹Ÿå°±æ˜¯éå†æ•°ç»„
+            ÏÔÊ¾ÉÌÆ·£¬Ò²¾ÍÊÇ±éÀúÊı×é
             */
             System.out.print(product.getpId());
             System.out.print("\t" + product.getpName());
             System.out.print("\t" + product.getPrice());
-            System.out.println("\t" + product.getpDesc());//ç©ºæ ¼+æ¢è¡Œ
+            System.out.println("\t" + product.getpDesc());//¿Õ¸ñ+»»ĞĞ
         }
-        System.out.println("è¯·è¾“å…¥å•†å“IDå°†è¯¥å•†å“åŠ å…¥è´­ç‰©è½¦ï¼š");
+        System.out.println("ÇëÊäÈëÉÌÆ·ID½«¸ÃÉÌÆ·¼ÓÈë¹ºÎï³µ£º");
         String pId = sc.next();
         /*
-        æ ¹æ®æ­¤IDå»excelä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰å¯¹åº”çš„å•†å“ä¿¡æ¯ï¼Œè‹¥æœ‰åˆ™è¿”å›è¯¥å•†å“
+        ¸ù¾İ´ËIDÈ¥excelÖĞ²éÕÒÊÇ·ñÓĞ¶ÔÓ¦µÄÉÌÆ·ĞÅÏ¢£¬ÈôÓĞÔò·µ»Ø¸ÃÉÌÆ·
         */
         ReadProductExcel readProductExcel1 = new ReadProductExcel();
         inProduct = null;
