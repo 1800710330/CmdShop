@@ -1,4 +1,5 @@
 import java.sql.Date;
+import java.util.Map;
 
 public class Order {
     /*
@@ -7,7 +8,8 @@ public class Order {
      */
     private User user;
     private Product products[];
-    private int productAmmount;//购买数量
+    private Map<Integer,Integer> productAmmount;//购买数量:但是无法表达出买了几个哪种商品:商品，个数
+    //使用Map结构可以解决这个问题
     private float totalPrice;
     private float finalPay;
     private Date orderDate;
@@ -28,11 +30,11 @@ public class Order {
         this.products = products;
     }
 
-    public int getProductAmmount() {
+    public Map<Integer, Integer> getProductAmmount() {
         return productAmmount;
     }
 
-    public void setProductAmmount(int productAmmount) {
+    public void setProductAmmount(Map<Integer, Integer> productAmmount) {
         this.productAmmount = productAmmount;
     }
 

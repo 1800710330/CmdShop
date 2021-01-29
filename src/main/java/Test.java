@@ -1,4 +1,7 @@
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Test {
@@ -7,7 +10,7 @@ public class Test {
     static int count = 0;
     static Product carts[] = new Product[3];
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, FileNotFoundException {
         boolean bo = true;
         while (bo) {
             System.out.println("请输入用户名：");
@@ -48,22 +51,22 @@ public class Test {
                              */
                             Order order = new Order();//创建订单类对象
                             order.setUser(users[i]);//登录成功的该用户 ,订单关联用户
-                            Product products[] = new Product[count];
+                            Product products[] = new Product[count+1];
                             /*
                             实际买了2个商品，怎样把carts中的2个商品对象放入products
                              */
-                            for(int j = 0;j < carts.length;j++){
-                                if(carts[j]!= null){
+                            for (int j = 0; j < carts.length; j++) {
+                                if (carts[j] != null) {
                                     products[j] = carts[j];
                                 }
                             }
-                            order.setProducts(carts);//订单关联商品:实际应该进行处理，把数组中为null的去除
+                            order.setProducts(products);//订单关联商品:实际应该进行处理，把数组中为null的去除
                             //下订单（创建Excel）
+                            Map<Integer, Integer> productAmmount = new HashMap<Integer, Integer>();
+                            productAmmount.put(1111, 2);
+                            productAmmount.put(2222, 1);
+                            order.setProductAmmount(productAmmount);
                             CreateOrder.createOrder(order);
-
-                            /*
-                            统计每个商品的数量
-                             */
                         } else if (choose == 4) {
                             System.out.println("退出成功");
                             break;
