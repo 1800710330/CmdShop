@@ -8,11 +8,19 @@ public class Order {
      */
     private User user;
     private Product products[];
-    private Map<Integer,Integer> productAmmount;//购买数量:但是无法表达出买了几个哪种商品:商品，个数
+    private Map<Integer, Integer> productAmmount;//购买数量:商品，个数
     //使用Map结构可以解决这个问题
-    private float totalPrice;
-    private float finalPay;
+    private Map<Integer, Float> totalAmountPerProduct;//每个商品的总价
+    private float finalPay;//实付款
     private Date orderDate;
+
+    public Map<Integer, Float> getTotalAmountPerProduct() {
+        return totalAmountPerProduct;
+    }
+
+    public void setTotalAmountPerProduct(Map<Integer, Float> totalAmountPerProduct) {
+        this.totalAmountPerProduct = totalAmountPerProduct;
+    }
 
     public User getUser() {
         return user;
@@ -36,14 +44,6 @@ public class Order {
 
     public void setProductAmmount(Map<Integer, Integer> productAmmount) {
         this.productAmmount = productAmmount;
-    }
-
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public float getFinalPay() {

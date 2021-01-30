@@ -9,6 +9,8 @@ public class Test {
      */
     static int count = 0;
     static Product carts[] = new Product[3];
+    static Map<Integer, Integer> productAmmount = new HashMap<Integer, Integer>();
+    static Map<Integer, Float> totalAmountPerProduct = new HashMap<Integer, Float>();
 
     public static void main(String[] args) throws ClassNotFoundException, FileNotFoundException {
         boolean bo = true;
@@ -27,10 +29,9 @@ public class Test {
                 {
                     System.out.println("登录成功");
                     bo = false;
-                    shopping(sc);//调用方法
                     while (true) {
                         System.out.println("查看购物车请按1");
-                        System.out.println("继续购买商品请按2");
+                        System.out.println("购买商品请按2");
                         System.out.println("结账请按3");
                         System.out.println("退出请按4");
                         int choose = sc.nextInt();//输入整型
@@ -51,7 +52,7 @@ public class Test {
                              */
                             Order order = new Order();//创建订单类对象
                             order.setUser(users[i]);//登录成功的该用户 ,订单关联用户
-                            Product products[] = new Product[count+1];
+                            Product products[] = new Product[count];
                             /*
                             实际买了2个商品，怎样把carts中的2个商品对象放入products
                              */
@@ -62,10 +63,15 @@ public class Test {
                             }
                             order.setProducts(products);//订单关联商品:实际应该进行处理，把数组中为null的去除
                             //下订单（创建Excel）
-                            Map<Integer, Integer> productAmmount = new HashMap<Integer, Integer>();
-                            productAmmount.put(1111, 2);
-                            productAmmount.put(2222, 1);
-                            order.setProductAmmount(productAmmount);
+
+                            order.setProductAmmount(productAmmount);//关联购买数量
+                            for (Product product : products) {
+                                //如何拿到哪个商品的数量
+                                int geshu = productAmmount.get(Integer.parseInt(product.getpId()));//多态，向上转型
+                                totalAmountPerProduct.put(Integer.parseInt(product.getpId()), product.getPrice()*geshu);
+
+                            }
+                            order.setTotalAmountPerProduct(totalAmountPerProduct);//订单关联每个商品的总价
                             CreateOrder.createOrder(order);
                         } else if (choose == 4) {
                             System.out.println("退出成功");
@@ -99,23 +105,26 @@ public class Test {
     }
 
     /*
-    继续购买商品
+    购买商品
      */
     public static void shopping(Scanner sc) throws ClassNotFoundException {
         InputStream inProduct = Class.forName("Test").getResourceAsStream("/Product.xlsx");
         ReadProductExcel readProductExcel = new ReadProductExcel();
         Product products[] = readProductExcel.getAllProduct(inProduct);
         for (Product product : products) {
-            /*
-            显示商品，也就是遍历数组
-            */
+            //显示商品，也就是遍历数组
             System.out.print(product.getpId());
             System.out.print("\t" + product.getpName());
             System.out.print("\t" + product.getPrice());
             System.out.println("\t" + product.getpDesc());//空格+换行
         }
-        System.out.println("请输入商品ID将该商品加入购物车：");
-        String pId = sc.next();
+        System.out.println("请输入商品ID以及购买数量,商品ID与购买数量用逗号隔开,例:1111,2,将该商品加入购物车：");
+        String pInfo = sc.next();
+        String str[] = pInfo.split(",");
+        String pId = str[0];//商品ID
+        String num = str[1];//购买数量
+        productAmmount.put(Integer.parseInt(pId), Integer.parseInt(num));
+
         /*
         根据此ID去excel中查找是否有对应的商品信息，若有则返回该商品
         */
